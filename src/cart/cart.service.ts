@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cart } from './entities/cart.entity';
 import { CartItem } from './entities/cart-item.entity';
-import { ProductService } from '../product/product.service';
+import { Product } from '../product/entities/product.entity';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { UpdateCartItemDto } from './dto/update-cart-item.dto';
 
@@ -14,10 +14,11 @@ export class CartService {
     private readonly cartRepository: Repository<Cart>,
     @InjectRepository(CartItem)
     private readonly cartItemRepository: Repository<CartItem>,
-    private readonly productService: ProductService,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
-  async getCart(userId: string): Promise<Cart> {
+  async getCart(userId: number): Promise<Cart> {
     let cart = await this.cartRepository.findOne({
       where: { userId },
       relations: ['items', 'items.product'],
@@ -25,18 +26,24 @@ export class CartService {
 
     if (!cart) {
       cart = this.cartRepository.create({ userId });
-      await this.cartRepository.save(cart);
+      cart = await this.cartRepository.save(cart);
     }
 
     return cart;
   }
 
-  async addToCart(userId: string, addToCartDto: AddToCartDto): Promise<Cart> {
+  async addToCart(userId: number, addToCartDto: AddToCartDto): Promise<Cart> {
     const cart = await this.getCart(userId);
-    const product = await this.productService.findOne(addToCartDto.productId);
+    const product = await this.productRepository.findOne({
+      where: { id: addToCartDto.productId },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
 
     if (product.stock < addToCartDto.quantity) {
-      throw new Error('Insufficient stock');
+      throw new BadRequestException('Insufficient stock');
     }
 
     let cartItem = cart.items.find(item => item.product.id === product.id);
@@ -57,7 +64,7 @@ export class CartService {
     return await this.cartRepository.save(cart);
   }
 
-  async updateCartItem(userId: string, itemId: number, updateCartItemDto: UpdateCartItemDto): Promise<Cart> {
+  async updateCartItem(userId: number, itemId: number, updateCartItemDto: UpdateCartItemDto): Promise<Cart> {
     const cart = await this.getCart(userId);
     const cartItem = cart.items.find(item => item.id === itemId);
 
@@ -70,7 +77,7 @@ export class CartService {
       await this.cartItemRepository.remove(cartItem);
     } else {
       if (cartItem.product.stock < updateCartItemDto.quantity) {
-        throw new Error('Insufficient stock');
+        throw new BadRequestException('Insufficient stock');
       }
       cartItem.quantity = updateCartItemDto.quantity;
       await this.cartItemRepository.save(cartItem);
@@ -79,7 +86,7 @@ export class CartService {
     return await this.cartRepository.save(cart);
   }
 
-  async removeFromCart(userId: string, itemId: number): Promise<Cart> {
+  async removeFromCart(userId: number, itemId: number): Promise<Cart> {
     const cart = await this.getCart(userId);
     const cartItem = cart.items.find(item => item.id === itemId);
 
@@ -93,8 +100,16 @@ export class CartService {
     return await this.cartRepository.save(cart);
   }
 
-  async clearCart(userId: string): Promise<void> {
-    const cart = await this.getCart(userId);
+  async clearCart(userId: number): Promise<void> {
+    const cart = await this.cartRepository.findOne({
+      where: { userId },
+      relations: ['items'],
+    });
+    
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+
     await this.cartItemRepository.remove(cart.items);
     cart.items = [];
     await this.cartRepository.save(cart);

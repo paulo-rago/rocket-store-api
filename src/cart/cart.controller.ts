@@ -21,7 +21,7 @@ export class CartController {
   @Get()
   @HttpCode(HttpStatus.OK)
   getCart(@Headers('user-id') userId: string) {
-    return this.cartService.getCart(userId);
+    return this.cartService.getCart(+userId);
   }
 
   @Post('items')
@@ -30,7 +30,7 @@ export class CartController {
     @Headers('user-id') userId: string,
     @Body() addToCartDto: AddToCartDto,
   ) {
-    return this.cartService.addToCart(userId, addToCartDto);
+    return this.cartService.addToCart(+userId, addToCartDto);
   }
 
   @Patch('items/:id')
@@ -40,7 +40,7 @@ export class CartController {
     @Param('id') id: string,
     @Body() updateCartItemDto: UpdateCartItemDto,
   ) {
-    return this.cartService.updateCartItem(userId, +id, updateCartItemDto);
+    return this.cartService.updateCartItem(+userId, +id, updateCartItemDto);
   }
 
   @Delete('items/:id')
@@ -49,12 +49,12 @@ export class CartController {
     @Headers('user-id') userId: string,
     @Param('id') id: string,
   ) {
-    return this.cartService.removeFromCart(userId, +id);
+    return this.cartService.removeFromCart(+userId, +id);
   }
 
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
   clearCart(@Headers('user-id') userId: string) {
-    return this.cartService.clearCart(userId);
+    return this.cartService.clearCart(+userId);
   }
 } 

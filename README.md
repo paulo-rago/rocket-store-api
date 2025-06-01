@@ -1,98 +1,197 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 Rocket Store API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descrição
+API de e-commerce desenvolvida com NestJS. Esta aplicação oferece um backend robusto com funcionalidades completas de gerenciamento de produtos, carrinho de compras, autenticação de usuários e processamento de pedidos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 💻 Tecnologias Utilizadas
+- NestJS
+- TypeScript
+- SQLite
+- JWT para autenticação
+- Swagger para documentação
+- Class Validator para validação de dados
 
-## Description
+## 🛠️ Funcionalidades Principais
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Produtos
+- Listagem de produtos
+- Cadastro de novos produtos
+- Atualização de produtos existentes
+- Remoção de produtos
+- Consulta de detalhes do produto
 
-## Project setup
+### Carrinho de Compras
+- Adicionar produtos ao carrinho
+- Remover produtos do carrinho
+- Atualizar quantidade de itens
+- Visualizar carrinho atual
 
+### Autenticação
+- Registro de novos usuários
+- Login com geração de token JWT
+- Proteção de rotas privadas
+
+### Pedidos
+- Criação de pedidos
+- Histórico de pedidos
+- Detalhamento de pedidos
+
+## 📋 Pré-requisitos
+- Node.js (versão 14 ou superior)
+- npm ou yarn
+
+## 🚀 Instalação
+
+1. Clone o repositório:
 ```bash
-$ npm install
+git clone [URL_DO_REPOSITÓRIO]
+cd rocket-store-api
 ```
 
-## Compile and run the project
-
+2. Instale as dependências:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+3. Configure as variáveis de ambiente:
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+```env
+PORT=3000
+JWT_SECRET=sua_chave_secreta
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+4. Inicie o servidor:
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 📚 Documentação da API
 
-## Resources
+A documentação completa da API está disponível através do Swagger UI. Após iniciar o servidor, acesse:
+```
+http://localhost:3000/api
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### Principais Endpoints
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+#### Autenticação
+- POST `/auth/register` - Registro de novo usuário
+- POST `/auth/login` - Login de usuário
 
-## Support
+#### Produtos
+- GET `/products` - Lista todos os produtos
+- GET `/products/:id` - Obtém detalhes de um produto
+- POST `/products` - Cria novo produto
+- PUT `/products/:id` - Atualiza um produto
+- DELETE `/products/:id` - Remove um produto
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### Carrinho
+- GET `/cart` - Visualiza o carrinho atual
+- POST `/cart/items` - Adiciona item ao carrinho
+- PUT `/cart/items/:id` - Atualiza quantidade de um item
+- DELETE `/cart/items/:id` - Remove item do carrinho
 
-## Stay in touch
+#### Pedidos
+- POST `/checkout` - Finaliza a compra
+- GET `/orders` - Lista pedidos do usuário
+- GET `/orders/:id` - Obtém detalhes de um pedido
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 🔒 Autenticação
 
-## License
+A API utiliza autenticação JWT. Para acessar endpoints protegidos, inclua o token no header:
+```
+Authorization: Bearer [seu_token]
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 🧪 Testando a API
+
+Você pode testar a API usando:
+- Swagger UI (http://localhost:3000/api)
+- Postman
+- Insomnia
+- Thunder Client (extensão VS Code)
+
+## 🧪 Testes Unitários
+
+O projeto conta com uma suíte completa de testes unitários implementada com Jest. Os testes cobrem todos os serviços principais da aplicação:
+
+### Cobertura de Testes
+- Total de Suítes: 7
+- Total de Testes: 38
+- Serviços Testados:
+  - AuthService: Autenticação e registro de usuários
+  - CartService: Gerenciamento do carrinho de compras
+  - ProductService: CRUD de produtos
+  - OrderService: Processamento de pedidos
+  - UsersService: Gerenciamento de usuários
+
+### Executando os Testes
+```bash
+# Executa todos os testes
+npm test
+
+# Executa testes com coverage
+npm run test:cov
+
+# Executa testes em modo watch
+npm run test:watch
+```
+
+### Principais Casos de Teste
+- Autenticação:
+  - Registro de usuário
+  - Login com credenciais válidas/inválidas
+  - Validação de token JWT
+
+- Carrinho:
+  - Adição de itens
+  - Remoção de itens
+  - Atualização de quantidades
+  - Limpeza do carrinho
+
+- Produtos:
+  - Criação de produtos
+  - Atualização de informações
+  - Remoção lógica (soft delete)
+  - Gestão de estoque
+
+- Pedidos:
+  - Criação de pedidos
+  - Validação de itens
+  - Processamento de checkout
+
+### Boas Práticas Implementadas
+- Mocking de repositórios TypeORM
+- Testes de casos de sucesso e erro
+- Validação de exceções
+- Isolamento de dependências
+- Cobertura de casos de borda
+
+## 📝 Estrutura do Projeto
+```
+src/
+├── auth/           # Autenticação
+├── products/       # Gerenciamento de produtos
+├── cart/          # Carrinho de compras
+├── orders/        # Pedidos
+├── users/         # Gerenciamento de usuários
+└── main.ts        # Arquivo principal
+```
+
+## 🤝 Contribuindo
+
+1. Faça o fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👥 Autores
+- Seu Nome - Desenvolvedor Principal
+
+## 🙏 Agradecimentos
+- NestJS Team
+- Comunidade Open Source

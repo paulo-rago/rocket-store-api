@@ -6,8 +6,10 @@ import {
   Headers,
   HttpCode,
   HttpStatus,
+  Body,
 } from '@nestjs/common';
 import { CheckoutService } from './checkout.service';
+import { CreateOrderDto } from '../order/dto/create-order.dto';
 
 @Controller('checkout')
 export class CheckoutController {
@@ -15,8 +17,11 @@ export class CheckoutController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  checkout(@Headers('user-id') userId: string) {
-    return this.checkoutService.checkout(userId);
+  checkout(
+    @Headers('user-id') userId: string,
+    @Body() createOrderDto: CreateOrderDto,
+  ) {
+    return this.checkoutService.checkout(userId, createOrderDto);
   }
 
   @Get('orders')

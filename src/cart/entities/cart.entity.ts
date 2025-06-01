@@ -6,10 +6,10 @@ export class Cart {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
-  userId: string;
+  @Column()
+  userId: number;
 
-  @OneToMany(() => CartItem, (cartItem) => cartItem.cart, {
+  @OneToMany(() => CartItem, (item) => item.cart, {
     cascade: true,
     eager: true,
   })
